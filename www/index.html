@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+    <meta http-equiv="Content-Security-Policy" content=" default-src *; 
+        style-src * 'unsafe-inline'; 
+        script-src * 'unsafe-inline'; 
+        media-src *; img-src * data:; 
+    " />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    <link rel="stylesheet" href="css/index.css">
+    <title>Aplicación de registro</title>
+    <meta name="author" content="Víctor" />
+    <meta name="copyright" content="victor manuel vasquez poblete" />
+    <link href="css/jquery.mobile-1.4.5.min.css" rel="stylesheet" type="text/css">
+    <link href="css/jquery.mobile.theme-1.4.5.min.css" rel="stylesheet" type="text/css">
+    <link href="css/jquery.mobile.icons-1.4.5.min.css" rel="stylesheet" type="text/css">
+    <link href="css/jquery.mobile.structure-1.4.5.min.css" rel="stylesheet" type="text/css">
+
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<style type="text/css">
+    body {
+        background: url(https://thumbs.dreamstime.com/b/dise%C3%B1o-del-fondo-para-m%C3%A9dico-papel-pintado-hospital-icono-149447000.jpg);
+        background-repeat:repeat-y;
+        background-position:center center;
+        background-attachment:scroll;
+        background-size:100% 100%;
+    }
+    .ui-page {
+        background: transparent;
+    }
+    .ui-content{
+        background: transparent;
+    }
+    </style>
+<body>
+    <div data-role="page" id="registrar" data-theme="a">
+        <div data-role="header" data-position="fixed">
+            <h1>
+                Sistema de registro de citas médicas
+            </h1>
+            <div class="div-logo">
+                <img src="img/logo.png" alt="Logo" class="logo" style="padding-bottom:20px">
+            </div>
+        </div>
+        <div data-role="navbar">
+            <ul>
+                <li>
+                    <a href="#registrar" data-transition="turn" data-icon="plus">Registrar</a>
+                </li>
+                <li>
+                    <a href="#mostrar" onclick="mostrar()" data-transition="flip" data-icon="eye">Mostrar</a>
+                </li>
+                <li>
+                    <a href="#acercade" data-icon="info">Acerca de ..</a>
+                </li>
+            </ul>
+        </div>
+        <div data-role="content">
+            <form onsubmit="return validarForm()">
+                <table border="0" align="center" style="width: 70%;">
+                    <tr>
+                        <td id="tablatd">Nombres</td>
+                        <td><input type="text" id="nombres" name="nombres" minlength="4" maxlength="30"
+                                pattern="[A-Z-(ÁÉÍÓÚ)]{1}[A-Za-z(ÁÉÍÓÚáéíóú) ]{3,30}"
+                                title="El nombre debe iniciar con mayúsculas y solo deben ser letras" required></td>
+                    </tr>
+                    <tr>
+                        <td id="tablatd">Apellidos</td>
+                        <td><input type="text" id="apellidos" name="apellidos" minlength="4" maxlength="30"
+                                pattern="[A-Z-(ÁÉÍÓÚ)]{1}[A-Za-z(ÁÉÍÓÚáéíóú) ]{3,30}"
+                                title="El apellido debe iniciar con mayúsculas y solo deben ser letras" required></td>
+                    </tr>
+                    <tr>
+                        <td id="tablatd">Genero</td>
+                        <td>
+                            <select name="genero" id="genero">
+                                <option value="F">Femenino</option>
+                                <option value="M">Masculino</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="tablatd">Edad</td>
+                        <td><input type="number" id="edad" name="edad" min="18" max="100" title="Debes ser mayor de edad"
+                                required></td>
+                    </tr>
+                    <tr>
+                        <td id="tablatd">Peso (kg)</td>
+                        <td><input type="number" id="peso" name="peso" min="50" max="150" title="Debes pesar más de 50kg"
+                                required></td>
+                    </tr>
+                    <tr>
+                        <td id="tablatd">Tipo de sangre</td>
+                        <td>
+                            <select name="ts" id="ts">
+                                <option value="O -">O NEGATIVO</option>
+                                <option value="O +">O POSITIVO</option>
+                                <option value="A -">A NEGATIVO</option>
+                                <option value="A +">A POSITIVO</option>
+                                <option value="B -">B NEGATIVO</option>
+                                <option value="B +">B POSITIVO</option>
+                                <option value="AB -">AB NEGATIVO</option>
+                                <option value="AB +">AB POSITIVO</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr >
+                        <td id="tablatd">Número de teléfono</td>
+                        <td>
+                            <input type="tel" id="tel" name="tel" pattern="[0-9]{10}"
+                                title="Solo se pueden escribir números y debe ser un número de 10 dígitos" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="tablatd">Email</td>
+                        <td>
+                            <input type="email" id="email" name="email"
+                                pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"
+                                required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><button type="submit" id="big-button">Guardar</button></td>
+                        <td>
+                            <button id="big-button" type="button" onclick="limpiar()">Limpiar</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <h1>copyright 2021 BRCH</h1>
+        </div>
+    </div>
+    <div data-role="page" id="mostrar" data-theme="b" id="banner">
+        <div data-role="header" data-position="fixed">
+            <h1>
+                Sistema de registro de información
+            </h1>
+        </div>
+        <div data-role="navbar">
+            <ul>
+                <li>
+                    <a href="#registrar" data-transition="turn" data-icon="plus">Registrar</a>
+                </li>
+                <li>
+                    <a href="#mostrar" onclick="mostrar()" data-transition="flip" data-icon="eye">Mostrar</a>
+                </li>
+                <li>
+                    <a href="#acercade" data-icon="info">Acerca de ..</a>
+                </li>
+            </ul>
+        </div>
+        <div data-role="main" class="ui-content">
+            <table data-role="table" class="ui-responsive table-stroke" id="tabla">
+                <thead>
+                    <tr>
+                        <th>NOMBRES</th>
+                        <th>APELLIDOS</th>
+                        <th>GENERO</th>
+                        <th>EDAD</th>
+                        <th>PESO</th>
+                        <th>TIPO S.</th>
+                        <th>TELEFONO</th>
+                        <th>EMAIL</th>
+                        <th>BORRAR</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div data-role="page" id="acercade" data-theme="a">
+        <div data-role="header" data-position="fixed">
+            <h1>
+                Sistema de registro de información
+            </h1>
+        </div>
+        <div data-role="navbar">
+            <ul>
+                <li>
+                    <a href="#registrar" data-transition="turn" data-icon="plus">Registrar</a>
+                </li>
+                <li>
+                    <a href="#mostrar" onclick="mostrar()" data-transition="flip" data-icon="eye">Mostrar</a>
+                </li>
+                <li>
+                    <a href="#acercade" data-icon="info">Acerca de ..</a>
+                </li>
+            </ul>
+        </div>
+        <div data-role="content">
+            <div class="center-wrapper">
+                <H2 class="center-button">Integrantes del Equipo</H2><br><br>
+                <div data-role="navbar">
+                    <ul >
+                        <li >Víctor Manuel Vásquez Poblete</li>
+                        <li >Erick Mitchell Echeverría Celaya</li>
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <script src="js/index.js"></script>
+
+
+    <script>
+        var db = window.openDatabase("clinica.db3", "1.0", "Base de datos SQLite", 30 * 1024);
+
+        CreaDB();
+        var ItemId = 0;
+        function validarForm() {
+            guardar();
+            return false;
+        }
+        function CreaTablas(tx) {
+            tx.executeSql('CREATE TABLE IF NOT EXISTS donadores (itemId INTEGER PRIMARY KEY AUTOINCREMENT, apellidos VARCHAR(50) not NULL, nombres VARCHAR(50) not NULL, edad INTEGER not NULL, genero varchar(8) not NULL, peso INTEGER not NULL, ts VARCHAR(20) NOT NULL, telefono INTEGER NOT NULL, email VARCHAR(50) NOT NULL);');
+        }
+        function errorCB(err) {
+            // Esto se puede ir a un Log de Error diría el purista de la oficina, pero como este es un ejemplo pongo el MessageBox.Show <img draggable="false" role="img" class="emoji" alt="😛" src="https://s0.wp.com/wp-content/mu-plugins/wpcom-smileys/twemoji/2/svg/1f61b.svg">
+            console.log("Error processing SQL: Codigo: " + err.code + " Mensaje: " + err.message);
+        }
+
+        function successCB() {
+            console.log("creación de DB con exito");
+        }
+
+        function CreaDB() {
+            db.transaction(CreaTablas, errorCB, successCB);
+        }
+
+        function guardar() {
+
+            db.transaction(AgregaItem, errorCB, successCB);
+
+            alert("objeto guardado con exito");
+        }
+
+        function AgregaItem(tx) {
+            var apellidos = document.getElementById("apellidos").value;
+            var nombres = document.getElementById("nombres").value;
+            var genero = document.getElementById("genero").value;
+            var edad = document.getElementById("edad").value;
+            var peso = document.getElementById("peso").value;
+            var ts = document.getElementById("ts").value;
+            var tel = document.getElementById("tel").value;
+            var email = document.getElementById("email").value;
+
+            tx.executeSql('INSERT INTO donadores (apellidos,nombres,genero,edad,peso,ts,telefono,email) VALUES (?,?,?,?,?,?,?,?)', [apellidos, nombres, genero, edad, peso,ts,tel,email]);
+            limpiarControles();
+
+        }
+
+        function mostrar() {
+            db.transaction(ObtenerItems, errorCB);
+        }
+
+        function ObtenerItems(tx) {
+            tx.executeSql('SELECT * FROM donadores', [], MuestraItems, errorCB);
+        }
+
+        function MuestraItems(tx, results) {
+            var len = results.rows.length;
+            console.log(results.rows);
+            var tabla = $("#tbody");
+            tabla.empty();
+            for (var i = 0; i < len; i++) {
+                tabla.append("<tr><td>" + results.rows.item(i).nombres + "</td>" +
+                    "<td>" + results.rows.item(i).apellidos + "</td>" +
+                    "<td>" + results.rows.item(i).genero + "</td>" +
+                    "<td>" + results.rows.item(i).edad + "</td>" +
+                    "<td>" + results.rows.item(i).peso + "</td>" +
+                    "<td>" + results.rows.item(i).ts + "</td>" +
+                    "<td>" + results.rows.item(i).telefono + "</td>" +
+                    "<td>" + results.rows.item(i).email + "</td>" +
+                    "<td><button id='big-button' style='font-size: 0.7rem;' onclick='borrarFila(" + results.rows.item(i).itemId + ",this)'>borrar</button></td></tr>");
+            }
+        }
+
+        function limpiarControles() {
+            $("#apellidos").val("");
+            $("#nombres").val("");
+            //los select se reinicien
+            document.getElementById("genero").selectedIndex = 0;
+            $("#genero").selectmenu("refresh", true);
+            $("#edad").val("");
+            document.getElementById("ts").selectedIndex = 0;
+            $("#ts").selectmenu("refresh", true);
+            $("#peso").val("");
+            $("#tel").val("");
+            $("#email").val("");
+        }
+
+        function borrarFila(item, context) {
+            console.log(item);
+            ItemId = item;
+            var td = context.parentNode;
+            var tr = td.parentNode;
+            var table = tr.parentNode;
+            table.removeChild(tr);
+            db.transaction(BorrarItem, errorCB);
+        }
+        function BorrarItem(tx) {
+            tx.executeSql('DELETE FROM donadores WHERE itemId=?', [ItemId], successCB, errorCB);
+            alert("borrado correcto");
+        }
+    </script>
+</body>
+
+</html>
