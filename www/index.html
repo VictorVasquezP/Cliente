@@ -1,35 +1,8 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
 
 <head>
     <meta charset="utf-8">
-    <!--
-        Customize this policy to fit your own app's needs. For more guidance, see:
-            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
-        Some notes:
-            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
-            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-                * Enable inline JS: add 'unsafe-inline' to default-src
-        -->
     <meta http-equiv="Content-Security-Policy" content=" default-src *; 
         style-src * 'unsafe-inline'; 
         script-src * 'unsafe-inline'; 
@@ -42,7 +15,6 @@
     <link rel="stylesheet" href="css/index.css">
     <title>Aplicación de registro</title>
     <meta name="author" content="Víctor" />
-    <meta name="copyright" content="victor manuel vasquez poblete" />
     <link href="css/jquery.mobile-1.4.5.min.css" rel="stylesheet" type="text/css">
     <link href="css/jquery.mobile.theme-1.4.5.min.css" rel="stylesheet" type="text/css">
     <link href="css/jquery.mobile.icons-1.4.5.min.css" rel="stylesheet" type="text/css">
@@ -52,13 +24,7 @@
     <script src="js/jquery.mobile-1.4.5.min.js"></script>
 </head>
 <style type="text/css">
-    body {
-        background: url(https://thumbs.dreamstime.com/b/dise%C3%B1o-del-fondo-para-m%C3%A9dico-papel-pintado-hospital-icono-149447000.jpg);
-        background-repeat:repeat-y;
-        background-position:center center;
-        background-attachment:scroll;
-        background-size:100% 100%;
-    }
+    
     .ui-page {
         background: transparent;
     }
@@ -69,376 +35,150 @@
 <body>
     <div data-role="page" id="registrar" data-theme="a">
         <div data-role="header" data-position="fixed">
-            <h3>Registrar cita</h3>
+            <h1>
+                Sistema de registro de citas médicas
+            </h1>
+            <div class="div-logo">
+                <img src="img/logo.png" alt="Logo" class="logo" style="padding-bottom:20px">
+            </div>
         </div>
         <div data-role="content">
-            <form onsubmit="return AgendarCita()">
-                <table border="0" align="center" style="width: 70%;">
+        	<h1 style="text-align: center; color: white; font-size: 3rem;">LOG IN</h1>
+            <br>
+            <form onsubmit="return procesar()">
+                <table border="0" align="center" style="width: 70%; color: black;">
                     <tr>
-                        <td id="tablatd">Doctores</td>
+                        <td id="tablatd">Usuario</td>
                         <td>
-                            <select name="id_doctor" id="id_doctor">
-                                
-                            </select>
+                            <input type="text" id="usuario" name="usuario" minlength="4" maxlength="30"
+                                 required>
                         </td>
                     </tr>
                     <tr>
-                        <td id="tablatd">Fecha</td>
-                        <td>
-                            <input type="date" id="fecha" name="fecha" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td id="tablatd">Hora</td>
-                        <td>
-                            <select name="hora" id="hora">
-                                <option value="9">9:00 A.M.</option>
-                                <option value="10">10:00 A.M.</option>
-                                <option value="11">11:00 A.M.</option>
-                                <option value="12">12:00 P.M.</option>
-                                <option value="13">1:00 P.M.</option>
-                                <option value="14">2:00 P.M.</option>
-                                <option value="15">3:00 P.M.</option>
-                                <option value="16">4:00 P.M.</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr >
-                        <td id="tablatd">Observación</td>
-                        <td>
-                            <input type="text" id="observacion" name="observacion" >
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><button type="submit" id="big-button">Guardar</button></td>
-                        <td>
-                            <button id="big-button" type="button" onclick="limpiarControles()">Limpiar</button>
-                        </td>
+                        <td id="tablatd">Contraseña</td>
+                        <td><input type="password" id="password" name="password" minlength="1" maxlength="30"
+                                 required></td>
                     </tr>
                 </table>
-            </form>
+                <div style="display: flex; justify-content: center;">
+                    <button type="submit"  data-role="button" data-icon="check" data-transition="slidedown" data-theme="a" data-inline="true" >ACCESAR</button>
+                    <a href="#dialogo" data-role="button" data-icon="plus" data-transition="slidedown" data-theme="b" data-inline="true"  data-rel="dialog" >Registrarse</a>
+                    
+                </div>
+            </form>     
         </div>
         <div data-role="footer" data-position="fixed">
-            <div data-role="navbar">
-                <ul>
-                    <li>
-                        <a href="#registrar" data-transition="turn" data-icon="plus">Registrar</a>
-                    </li>
-                    <li>
-                        <a href="#mostrar" onclick="cargarCitas()" data-transition="flip" data-icon="eye">Mostrar</a>
-                    </li>
-                    <li>
-                        <a href="#acercade" onclick="cargarDatosPaciente()" data-icon="info">Acerca de ..</a>
-                    </li>
-                </ul>
-            </div>
+            <h1>copyright 2021 BRCH</h1>
         </div>
     </div>
-    <div data-role="page" id="mostrar" data-theme="b" id="banner">
-        <div data-role="header" data-position="fixed">
-            <h1>
-                Historial Citas
-            </h1>
-        </div>
-        <div data-role="main" class="ui-content">
-            <table data-role="table" class="ui-responsive table-stroke" id="tabla">
-                <thead>
-                    <tr>
-                        <th>DOCTOR</th>
-                        <th>FECHA</th>
-                        <th>HORA</th>
-                        <th>OBSERVACIÓN</th>
-                        <th>ESTADO</th>
-                        <th>DETALLES</th>
-                    </tr>
-                </thead>
-                <tbody id="tbody">
-
-                </tbody>
-            </table>
-        </div>
-        <div data-role="footer" data-position="fixed">
-            <div data-role="navbar">
-                <ul>
-                    <li>
-                        <a href="#registrar" data-transition="turn" data-icon="plus">Registrar</a>
-                    </li>
-                    <li>
-                        <a href="#mostrar" onclick="cargarCitas()" data-transition="flip" data-icon="eye">Mostrar</a>
-                    </li>
-                    <li>
-                        <a href="#acercade" onclick="cargarDatosPaciente()" data-icon="info">Acerca de ..</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div data-role="page" id="acercade" data-theme="a">
-        <div data-role="header" data-position="fixed">
-            <h1>
-                Detalles del usuario
-            </h1>
-        </div>
-        <div data-role="content">
-            <div data-role="collapsible">
-                <h4>Nombre</h4>
-                <p id="p_nombre"></p>
-            </div>
-            <div data-role="collapsible">
-                <h4>Apellido Paterno</h4>
-                <p id="p_ape_pat"></p>
-            </div>
-            <div data-role="collapsible">
-                <h4>Apellido Materno</h4>
-                <p id="p_ape_mat"></p>
-            </div>
-            <div data-role="collapsible">
-                <h4>Email</h4>
-                <p id="p_email"></p>
-            </div>
-        </div>
-        <div data-role="footer" data-position="fixed">
-            <div data-role="navbar">
-                <ul>
-                    <li>
-                        <a href="#registrar" data-transition="turn" data-icon="plus">Registrar</a>
-                    </li>
-                    <li>
-                        <a href="#mostrar" onclick="cargarCitas()" data-transition="flip" data-icon="eye">Mostrar</a>
-                    </li>
-                    <li>
-                        <a href="#acercade" onclick="cargarDatosPaciente()" data-icon="info">Acerca de ..</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div data-role="page" id="acceso">
-        <div data-role="header">
-            <h1>MENSAJE</h1>   		
-     </div>		
-     <div data-role="content">
-         <p>CITA REGISTRADA CORRECTAMENTE</p>
-         <a  data-role="button" data-rel="back" data-inline="true">Regresar</a>
-     </div>
-    </div>
-
-
     <div data-role="page" id="noacceso">
         <div data-role="header">
-            <h1>Error</h1>   		
+            <h1>Error al iniciar sesion</h1>   		
      </div>		
      <div data-role="content">
-         <p>Error al agendar cita</p>
+         <p>Verifica usuario y contraseña</p>
          <a  data-role="button" data-rel="back" data-inline="true">Regresar</a>
      </div>
     </div>
-
-    <div data-role="page" id="detallesCita">
+    <div  data-role="page" id="dialogo">
         <div data-role="header">
-            <h1>Detalles de la cita</h1>   		
-     </div>		
-     <div data-role="content">
-         <p>Error al agendar cita</p>
-         <a  data-role="button" data-rel="back" data-inline="true">Regresar</a>
-     </div>
+            <h3>Nuevo usuario</h3>
+        </div>
+            <div data-role="content">
+                    <form onsubmit="return agregar()">
+                        <input id="nuevo_nombre" name="nuevo_nombre" placeholder="Nombre" required pattern="[A-Z-(ÁÉÍÓÚ)]{1}[A-Za-z(ÁÉÍÓÚáéíóú) ]{3,30}" title="El nombre debe iniciar con mayúsculas y solo deben ser letras"/>
+                        <input id="nuevo_ape_pat" name="nuevo_ape_pat" placeholder="Apellido Paterno" required pattern="[A-Z-(ÁÉÍÓÚ)]{1}[A-Za-z(ÁÉÍÓÚáéíóú) ]{3,30}" title="El apellido debe iniciar con mayúsculas y solo deben ser letras"/>  
+                        <input id="nuevo_ape_mat" name="nuevo_ape_mat" placeholder="Apellido Materno" required pattern="[A-Z-(ÁÉÍÓÚ)]{1}[A-Za-z(ÁÉÍÓÚáéíóú) ]{3,30}" title="El apellido debe iniciar con mayúsculas y solo deben ser letras"/>
+                        <input id="nuevo_usuario" name="nuevo_usuario" placeholder="Usuario" required pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" />
+                        <input id="nuevo_password" name="nuevo_password" placeholder="Contraseña" required min="5" max="15" title="Debe tener una longitud de caracteres de min 5 y max 15"/> 
+                        <button type="submit"  data-role="button" data-icon="plus" data-transition="slidedown" data-theme="b"  >Registrar</button>
+                    </form>
+                    <a data-role="button"  data-rel="back">Cerrar</a>
+            </div>
+        
     </div>
-    
     <script src="js/index.js"></script>
-
-
-    <script>
-
-
-        $(document).ready( function() {
-            var today = new Date();
-            document.getElementById("fecha").value = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
-            cargarDoctores();
-            cargarCitas();
-        })
-
-
-
-        function cargarDoctores(){
-            $.ajax({
-                data: null,
-                url:'https://localhost:44347/Doctor/ListarDoctores',
-                type:'POST',
-                dataType: 'json',
-                beforeSend: function(){ $.mobile.loading('show'); },
- 	            complete: function(){ $.mobile.loading('hide'); },
-                success: function(response){
-                    console.log("success",response.lista);
-                    var select_Doctores = $("#id_doctor");
-                    select_Doctores.empty();
-                    for(var i=0;i<response.lista.length;i++){
-                        select_Doctores.append("<option value='"+response.lista[i].id_doctor+"'>"+response.lista[i].nombre+"</option>");
-                    }
-                },
-                error: function(err){
-                    console.log("Error",err.responseText);W
-                }
-            });
-
-    		return false;
+    <script type="text/javascript">
+    	function limpiar(){
+    		document.getElementById("usuario").value = "";
+    		document.getElementById("password").value = "";
     	}
 
-
-        function cargarDatosPaciente(){
-            var aux=JSON.parse(localStorage.getItem("Paciente"));
-            console.log(aux);
-            document.getElementById("p_nombre").innerHTML = aux.nombre;
-            document.getElementById("p_ape_pat").innerHTML = aux.ape_pat;
-            document.getElementById("p_ape_mat").innerHTML = aux.ape_mat;
-            document.getElementById("p_email").innerHTML = aux.usuario;
-        }
-
-        function limpiarControles() {
-            var today = new Date();
-            document.getElementById("fecha").value = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
-            //los select se reinicien
-            document.getElementById("id_doctor").selectedIndex = 0;
-            $("#id_doctor").selectmenu("refresh", true);
-            document.getElementById("hora").selectedIndex = 0;
-            $("#hora").selectmenu("refresh", true);
-            $("#observacion").val("");
-        }
-
-
-        function AgendarCita(){
-            var aux=JSON.parse(localStorage.getItem("Paciente"));
-    		var id_paciente = aux.id_paciente;
-    		var id_doctor = document.getElementById("id_doctor").value;
-            var fecha = document.getElementById("fecha").value;
-            var hora = document.getElementById("hora").value;
-            var observacion = document.getElementById("observacion").value;
+    	function procesar(){
+    		var usuario = document.getElementById("usuario").value;
+    		var password = document.getElementById("password").value;
+    		console.log("usuario ",usuario);
+    		console.log("password ",password);
 
             var parametros = {
-                'id_paciente': id_paciente,
-                'id_doctor': id_doctor,
-                'fecha':fecha,
-                'hora':hora,
-                'observacion':observacion
+                'usuario': usuario,
+                'password': password
             }
             console.log(parametros);
-            
             $.ajax({
                 data: parametros,
-                url:'https://localhost:44347/Citas/AgendarCita',
+                url:'https://ProyectoClinica.somee.com/Login/LoginMovil',
                 type:'POST',
                 dataType: 'json',
                 beforeSend: function(){ $.mobile.loading('show'); },
  	            complete: function(){ $.mobile.loading('hide'); },
                 success: function(response){
                     console.log("success",response);
-                    if(response=="exito"){
-                        $.mobile.changePage("#acceso",{transition:"flow", role:"dialog"});
-                        limpiarControles()
+                    if(response.result){
+                        console.log("JSON: "+response.paciente);
+                        localStorage.setItem("Paciente",JSON.stringify( response.paciente));
+                        console.log("Local Storage: "+localStorage.getItem("Paciente"));
+                        $.mobile.changePage(window.location.href="principal.html",{transition:"pop", reloadPage:true});
                     }else{
                         $.mobile.changePage("#noacceso",{transition:"flow", role:"dialog"});
-                        limpiarControles()
                     }
                 },
                 error: function(err){
-                    console.log("Error",err.responseText);
+                    alert.log("Error",err.responseText);
                 }
             });
 
     		return false;
     	}
 
-
-        function cargarCitas(){
-            var aux=JSON.parse(localStorage.getItem("Paciente"));
-    		var id_paciente = aux.id_paciente;
+        function agregar(){
+    		var nombre = document.getElementById("nuevo_nombre").value;
+    		var ape_pat = document.getElementById("nuevo_ape_pat").value;
+            var ape_mat = document.getElementById("nuevo_ape_mat").value;
+            var usuario = document.getElementById("nuevo_usuario").value;
+            var password = document.getElementById("nuevo_password").value;
+    		console.log("usuario ",usuario);
+    		console.log("password ",password);
             var parametros = {
-                'id': id_paciente,
+                'nombre': nombre,
+                'ape_pat': ape_pat,
+                'ape_mat':ape_mat,
+                'usuario':usuario,
+                'password':password
             }
             console.log(parametros);
             $.ajax({
                 data: parametros,
-                url:'https://localhost:44347/Citas/MisCitas',
+                url:'https://ProyectoClinica.somee.com/Login/RegistroMovil',
                 type:'POST',
                 dataType: 'json',
                 beforeSend: function(){ $.mobile.loading('show'); },
  	            complete: function(){ $.mobile.loading('hide'); },
                 success: function(response){
-                    console.log("Citas",response);
-                    var tabla = $("#tbody");
-                    tabla.empty();
-                    var estadoCita="";
-                    var horaFinal="";
-                    for (var i = 0; i < response.lista.length; i++) {
-                        switch(response.lista[i].status){
-                            case 0:
-                                estadoCita="Pendiente";
-                                break;
-                            case 1:
-                                estadoCita="Aceptada";
-                                break;
-                            case 2:
-                                estadoCita="Rechazada";
-                                break;
-                            case 3:
-                                estadoCita="Finalizada";
-                                break;
-                            default:
-                                estadoCita="";
-                                break;
-                        }
-                        switch(response.lista[i].horag.Hours){
-                            case 9:
-                                horaFinal="9:00 A.M.";
-                                break;
-                            case 10:
-                                horaFinal="10:00 A.M.";
-                                break;
-                            case 11:
-                                horaFinal="11:00 A.M.";
-                                break;
-                            case 12:
-                                horaFinal="12:00 P.M.";
-                                break;
-                            case 13:
-                                horaFinal="1:00 P.M.";
-                                break;
-                            case 14:
-                                horaFinal="2:00 P.M.";
-                                break;
-                            case 15:
-                                horaFinal="3:00 P.M.";
-                                break;
-                            case 16:
-                                horaFinal="4:00 P.M.";
-                                break;
-                            default:
-                                horaFinal="";
-                                break;
-                        }
-                        tabla.append("<tr><td>" + response.lista[i].doctor + "</td>" +
-                            "<td>" + response.lista[i].fecha + "</td>" +
-                            "<td>" + horaFinal + "</td>" +
-                            "<td>" + response.lista[i].observacion + "</td>" +
-                            "<td>" + estadoCita + "</td>" +
-                            "<td><a href='#detallesCita' data-role='button'  data-transition='slidedown' data-theme='a'   data-rel='dialog' >Ver</a></td>" +
-                            "</tr>");
+                    console.log("success",response);
+                    if(response.result ){
+                        $.mobile.changePage(window.location.href="principal.html",{transition:"pop", reloadPage:true});
+                    }else{
+                        $.mobile.changePage("#noacceso",{transition:"flow", role:"dialog"});
                     }
-                    /*var select_Doctores = $("#id_doctor");
-                    select_Doctores.empty();
-                    for(var i=0;i<response.lista.length;i++){
-                        select_Doctores.append("<option value='"+response.lista[i].id_doctor+"'>"+response.lista[i].nombre+"</option>");
-                    }*/
                 },
                 error: function(err){
-                    console.log("Error",err.responseText);W
+                    alert.log("Error",err.responseText);
                 }
             });
 
     		return false;
     	}
-
-
-
 
     </script>
 </body>
