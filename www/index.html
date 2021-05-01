@@ -69,137 +69,87 @@
 <body>
     <div data-role="page" id="registrar" data-theme="a">
         <div data-role="header" data-position="fixed">
-            <h1>
-                Sistema de registro de citas médicas
-            </h1>
-            <div class="div-logo">
-                <img src="img/logo.png" alt="Logo" class="logo" style="padding-bottom:20px">
-            </div>
-        </div>
-        <div data-role="navbar">
-            <ul>
-                <li>
-                    <a href="#registrar" data-transition="turn" data-icon="plus">Registrar</a>
-                </li>
-                <li>
-                    <a href="#mostrar" onclick="mostrar()" data-transition="flip" data-icon="eye">Mostrar</a>
-                </li>
-                <li>
-                    <a href="#acercade" data-icon="info">Acerca de ..</a>
-                </li>
-            </ul>
+            <h3>Registrar cita</h3>
         </div>
         <div data-role="content">
-            <form onsubmit="return validarForm()">
+            <form onsubmit="return AgendarCita()">
                 <table border="0" align="center" style="width: 70%;">
                     <tr>
-                        <td id="tablatd">Nombres</td>
-                        <td><input type="text" id="nombres" name="nombres" minlength="4" maxlength="30"
-                                pattern="[A-Z-(ÁÉÍÓÚ)]{1}[A-Za-z(ÁÉÍÓÚáéíóú) ]{3,30}"
-                                title="El nombre debe iniciar con mayúsculas y solo deben ser letras" required></td>
-                    </tr>
-                    <tr>
-                        <td id="tablatd">Apellidos</td>
-                        <td><input type="text" id="apellidos" name="apellidos" minlength="4" maxlength="30"
-                                pattern="[A-Z-(ÁÉÍÓÚ)]{1}[A-Za-z(ÁÉÍÓÚáéíóú) ]{3,30}"
-                                title="El apellido debe iniciar con mayúsculas y solo deben ser letras" required></td>
-                    </tr>
-                    <tr>
-                        <td id="tablatd">Genero</td>
+                        <td id="tablatd">Doctores</td>
                         <td>
-                            <select name="genero" id="genero">
-                                <option value="F">Femenino</option>
-                                <option value="M">Masculino</option>
+                            <select name="id_doctor" id="id_doctor">
+                                
                             </select>
                         </td>
                     </tr>
                     <tr>
-                        <td id="tablatd">Edad</td>
-                        <td><input type="number" id="edad" name="edad" min="18" max="100" title="Debes ser mayor de edad"
-                                required></td>
-                    </tr>
-                    <tr>
-                        <td id="tablatd">Peso (kg)</td>
-                        <td><input type="number" id="peso" name="peso" min="50" max="150" title="Debes pesar más de 50kg"
-                                required></td>
-                    </tr>
-                    <tr>
-                        <td id="tablatd">Tipo de sangre</td>
+                        <td id="tablatd">Fecha</td>
                         <td>
-                            <select name="ts" id="ts">
-                                <option value="O -">O NEGATIVO</option>
-                                <option value="O +">O POSITIVO</option>
-                                <option value="A -">A NEGATIVO</option>
-                                <option value="A +">A POSITIVO</option>
-                                <option value="B -">B NEGATIVO</option>
-                                <option value="B +">B POSITIVO</option>
-                                <option value="AB -">AB NEGATIVO</option>
-                                <option value="AB +">AB POSITIVO</option>
+                            <input type="date" id="fecha" name="fecha" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="tablatd">Hora</td>
+                        <td>
+                            <select name="hora" id="hora">
+                                <option value="9">9:00 A.M.</option>
+                                <option value="10">10:00 A.M.</option>
+                                <option value="11">11:00 A.M.</option>
+                                <option value="12">12:00 P.M.</option>
+                                <option value="13">1:00 P.M.</option>
+                                <option value="14">2:00 P.M.</option>
+                                <option value="15">3:00 P.M.</option>
+                                <option value="16">4:00 P.M.</option>
                             </select>
                         </td>
                     </tr>
-
                     <tr >
-                        <td id="tablatd">Número de teléfono</td>
+                        <td id="tablatd">Observación</td>
                         <td>
-                            <input type="tel" id="tel" name="tel" pattern="[0-9]{10}"
-                                title="Solo se pueden escribir números y debe ser un número de 10 dígitos" required>
+                            <input type="text" id="observacion" name="observacion" >
                         </td>
                     </tr>
-                    <tr>
-                        <td id="tablatd">Email</td>
-                        <td>
-                            <input type="email" id="email" name="email"
-                                pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"
-                                required>
-                        </td>
-                    </tr>
-                    
                     <tr>
                         <td><button type="submit" id="big-button">Guardar</button></td>
                         <td>
-                            <button id="big-button" type="button" onclick="limpiar()">Limpiar</button>
+                            <button id="big-button" type="button" onclick="limpiarControles()">Limpiar</button>
                         </td>
                     </tr>
                 </table>
             </form>
         </div>
         <div data-role="footer" data-position="fixed">
-            <h1>copyright 2021 BRCH</h1>
+            <div data-role="navbar">
+                <ul>
+                    <li>
+                        <a href="#registrar" data-transition="turn" data-icon="plus">Registrar</a>
+                    </li>
+                    <li>
+                        <a href="#mostrar" onclick="cargarCitas()" data-transition="flip" data-icon="eye">Mostrar</a>
+                    </li>
+                    <li>
+                        <a href="#acercade" onclick="cargarDatosPaciente()" data-icon="info">Acerca de ..</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
     <div data-role="page" id="mostrar" data-theme="b" id="banner">
         <div data-role="header" data-position="fixed">
             <h1>
-                Sistema de registro de información
+                Historial Citas
             </h1>
-        </div>
-        <div data-role="navbar">
-            <ul>
-                <li>
-                    <a href="#registrar" data-transition="turn" data-icon="plus">Registrar</a>
-                </li>
-                <li>
-                    <a href="#mostrar" onclick="mostrar()" data-transition="flip" data-icon="eye">Mostrar</a>
-                </li>
-                <li>
-                    <a href="#acercade" data-icon="info">Acerca de ..</a>
-                </li>
-            </ul>
         </div>
         <div data-role="main" class="ui-content">
             <table data-role="table" class="ui-responsive table-stroke" id="tabla">
                 <thead>
                     <tr>
-                        <th>NOMBRES</th>
-                        <th>APELLIDOS</th>
-                        <th>GENERO</th>
-                        <th>EDAD</th>
-                        <th>PESO</th>
-                        <th>TIPO S.</th>
-                        <th>TELEFONO</th>
-                        <th>EMAIL</th>
-                        <th>BORRAR</th>
+                        <th>DOCTOR</th>
+                        <th>FECHA</th>
+                        <th>HORA</th>
+                        <th>OBSERVACIÓN</th>
+                        <th>ESTADO</th>
+                        <th>DETALLES</th>
                     </tr>
                 </thead>
                 <tbody id="tbody">
@@ -207,142 +157,289 @@
                 </tbody>
             </table>
         </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li>
+                        <a href="#registrar" data-transition="turn" data-icon="plus">Registrar</a>
+                    </li>
+                    <li>
+                        <a href="#mostrar" onclick="cargarCitas()" data-transition="flip" data-icon="eye">Mostrar</a>
+                    </li>
+                    <li>
+                        <a href="#acercade" onclick="cargarDatosPaciente()" data-icon="info">Acerca de ..</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
     <div data-role="page" id="acercade" data-theme="a">
         <div data-role="header" data-position="fixed">
             <h1>
-                Sistema de registro de información
+                Detalles del usuario
             </h1>
         </div>
-        <div data-role="navbar">
-            <ul>
-                <li>
-                    <a href="#registrar" data-transition="turn" data-icon="plus">Registrar</a>
-                </li>
-                <li>
-                    <a href="#mostrar" onclick="mostrar()" data-transition="flip" data-icon="eye">Mostrar</a>
-                </li>
-                <li>
-                    <a href="#acercade" data-icon="info">Acerca de ..</a>
-                </li>
-            </ul>
-        </div>
         <div data-role="content">
-            <div class="center-wrapper">
-                <H2 class="center-button">Integrantes del Equipo</H2><br><br>
-                <div data-role="navbar">
-                    <ul >
-                        <li >Víctor Manuel Vásquez Poblete</li>
-                        <li >Erick Mitchell Echeverría Celaya</li>
-                    </ul>
-                </div>
-                
+            <div data-role="collapsible">
+                <h4>Nombre</h4>
+                <p id="p_nombre"></p>
+            </div>
+            <div data-role="collapsible">
+                <h4>Apellido Paterno</h4>
+                <p id="p_ape_pat"></p>
+            </div>
+            <div data-role="collapsible">
+                <h4>Apellido Materno</h4>
+                <p id="p_ape_mat"></p>
+            </div>
+            <div data-role="collapsible">
+                <h4>Email</h4>
+                <p id="p_email"></p>
+            </div>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li>
+                        <a href="#registrar" data-transition="turn" data-icon="plus">Registrar</a>
+                    </li>
+                    <li>
+                        <a href="#mostrar" onclick="cargarCitas()" data-transition="flip" data-icon="eye">Mostrar</a>
+                    </li>
+                    <li>
+                        <a href="#acercade" onclick="cargarDatosPaciente()" data-icon="info">Acerca de ..</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
+    <div data-role="page" id="acceso">
+        <div data-role="header">
+            <h1>MENSAJE</h1>   		
+     </div>		
+     <div data-role="content">
+         <p>CITA REGISTRADA CORRECTAMENTE</p>
+         <a  data-role="button" data-rel="back" data-inline="true">Regresar</a>
+     </div>
+    </div>
+
+
+    <div data-role="page" id="noacceso">
+        <div data-role="header">
+            <h1>Error</h1>   		
+     </div>		
+     <div data-role="content">
+         <p>Error al agendar cita</p>
+         <a  data-role="button" data-rel="back" data-inline="true">Regresar</a>
+     </div>
+    </div>
+
+    <div data-role="page" id="detallesCita">
+        <div data-role="header">
+            <h1>Detalles de la cita</h1>   		
+     </div>		
+     <div data-role="content">
+         <p>Error al agendar cita</p>
+         <a  data-role="button" data-rel="back" data-inline="true">Regresar</a>
+     </div>
+    </div>
+    
     <script src="js/index.js"></script>
 
 
     <script>
-        var db = window.openDatabase("clinica.db3", "1.0", "Base de datos SQLite", 30 * 1024);
 
-        CreaDB();
-        var ItemId = 0;
-        function validarForm() {
-            guardar();
-            return false;
-        }
-        function CreaTablas(tx) {
-            tx.executeSql('CREATE TABLE IF NOT EXISTS donadores (itemId INTEGER PRIMARY KEY AUTOINCREMENT, apellidos VARCHAR(50) not NULL, nombres VARCHAR(50) not NULL, edad INTEGER not NULL, genero varchar(8) not NULL, peso INTEGER not NULL, ts VARCHAR(20) NOT NULL, telefono INTEGER NOT NULL, email VARCHAR(50) NOT NULL);');
-        }
-        function errorCB(err) {
-            // Esto se puede ir a un Log de Error diría el purista de la oficina, pero como este es un ejemplo pongo el MessageBox.Show <img draggable="false" role="img" class="emoji" alt="😛" src="https://s0.wp.com/wp-content/mu-plugins/wpcom-smileys/twemoji/2/svg/1f61b.svg">
-            console.log("Error processing SQL: Codigo: " + err.code + " Mensaje: " + err.message);
-        }
 
-        function successCB() {
-            console.log("creación de DB con exito");
-        }
+        $(document).ready( function() {
+            var today = new Date();
+            document.getElementById("fecha").value = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
+            cargarDoctores();
+            cargarCitas();
+        })
 
-        function CreaDB() {
-            db.transaction(CreaTablas, errorCB, successCB);
-        }
 
-        function guardar() {
 
-            db.transaction(AgregaItem, errorCB, successCB);
+        function cargarDoctores(){
+            $.ajax({
+                data: null,
+                url:'https://localhost:44347/Doctor/ListarDoctores',
+                type:'POST',
+                dataType: 'json',
+                beforeSend: function(){ $.mobile.loading('show'); },
+ 	            complete: function(){ $.mobile.loading('hide'); },
+                success: function(response){
+                    console.log("success",response.lista);
+                    var select_Doctores = $("#id_doctor");
+                    select_Doctores.empty();
+                    for(var i=0;i<response.lista.length;i++){
+                        select_Doctores.append("<option value='"+response.lista[i].id_doctor+"'>"+response.lista[i].nombre+"</option>");
+                    }
+                },
+                error: function(err){
+                    console.log("Error",err.responseText);W
+                }
+            });
 
-            alert("objeto guardado con exito");
-        }
+    		return false;
+    	}
 
-        function AgregaItem(tx) {
-            var apellidos = document.getElementById("apellidos").value;
-            var nombres = document.getElementById("nombres").value;
-            var genero = document.getElementById("genero").value;
-            var edad = document.getElementById("edad").value;
-            var peso = document.getElementById("peso").value;
-            var ts = document.getElementById("ts").value;
-            var tel = document.getElementById("tel").value;
-            var email = document.getElementById("email").value;
 
-            tx.executeSql('INSERT INTO donadores (apellidos,nombres,genero,edad,peso,ts,telefono,email) VALUES (?,?,?,?,?,?,?,?)', [apellidos, nombres, genero, edad, peso,ts,tel,email]);
-            limpiarControles();
-
-        }
-
-        function mostrar() {
-            db.transaction(ObtenerItems, errorCB);
-        }
-
-        function ObtenerItems(tx) {
-            tx.executeSql('SELECT * FROM donadores', [], MuestraItems, errorCB);
-        }
-
-        function MuestraItems(tx, results) {
-            var len = results.rows.length;
-            console.log(results.rows);
-            var tabla = $("#tbody");
-            tabla.empty();
-            for (var i = 0; i < len; i++) {
-                tabla.append("<tr><td>" + results.rows.item(i).nombres + "</td>" +
-                    "<td>" + results.rows.item(i).apellidos + "</td>" +
-                    "<td>" + results.rows.item(i).genero + "</td>" +
-                    "<td>" + results.rows.item(i).edad + "</td>" +
-                    "<td>" + results.rows.item(i).peso + "</td>" +
-                    "<td>" + results.rows.item(i).ts + "</td>" +
-                    "<td>" + results.rows.item(i).telefono + "</td>" +
-                    "<td>" + results.rows.item(i).email + "</td>" +
-                    "<td><button id='big-button' style='font-size: 0.7rem;' onclick='borrarFila(" + results.rows.item(i).itemId + ",this)'>borrar</button></td></tr>");
-            }
+        function cargarDatosPaciente(){
+            var aux=JSON.parse(localStorage.getItem("Paciente"));
+            console.log(aux);
+            document.getElementById("p_nombre").innerHTML = aux.nombre;
+            document.getElementById("p_ape_pat").innerHTML = aux.ape_pat;
+            document.getElementById("p_ape_mat").innerHTML = aux.ape_mat;
+            document.getElementById("p_email").innerHTML = aux.usuario;
         }
 
         function limpiarControles() {
-            $("#apellidos").val("");
-            $("#nombres").val("");
+            var today = new Date();
+            document.getElementById("fecha").value = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
             //los select se reinicien
-            document.getElementById("genero").selectedIndex = 0;
-            $("#genero").selectmenu("refresh", true);
-            $("#edad").val("");
-            document.getElementById("ts").selectedIndex = 0;
-            $("#ts").selectmenu("refresh", true);
-            $("#peso").val("");
-            $("#tel").val("");
-            $("#email").val("");
+            document.getElementById("id_doctor").selectedIndex = 0;
+            $("#id_doctor").selectmenu("refresh", true);
+            document.getElementById("hora").selectedIndex = 0;
+            $("#hora").selectmenu("refresh", true);
+            $("#observacion").val("");
         }
 
-        function borrarFila(item, context) {
-            console.log(item);
-            ItemId = item;
-            var td = context.parentNode;
-            var tr = td.parentNode;
-            var table = tr.parentNode;
-            table.removeChild(tr);
-            db.transaction(BorrarItem, errorCB);
-        }
-        function BorrarItem(tx) {
-            tx.executeSql('DELETE FROM donadores WHERE itemId=?', [ItemId], successCB, errorCB);
-            alert("borrado correcto");
-        }
+
+        function AgendarCita(){
+            var aux=JSON.parse(localStorage.getItem("Paciente"));
+    		var id_paciente = aux.id_paciente;
+    		var id_doctor = document.getElementById("id_doctor").value;
+            var fecha = document.getElementById("fecha").value;
+            var hora = document.getElementById("hora").value;
+            var observacion = document.getElementById("observacion").value;
+
+            var parametros = {
+                'id_paciente': id_paciente,
+                'id_doctor': id_doctor,
+                'fecha':fecha,
+                'hora':hora,
+                'observacion':observacion
+            }
+            console.log(parametros);
+            
+            $.ajax({
+                data: parametros,
+                url:'https://localhost:44347/Citas/AgendarCita',
+                type:'POST',
+                dataType: 'json',
+                beforeSend: function(){ $.mobile.loading('show'); },
+ 	            complete: function(){ $.mobile.loading('hide'); },
+                success: function(response){
+                    console.log("success",response);
+                    if(response=="exito"){
+                        $.mobile.changePage("#acceso",{transition:"flow", role:"dialog"});
+                        limpiarControles()
+                    }else{
+                        $.mobile.changePage("#noacceso",{transition:"flow", role:"dialog"});
+                        limpiarControles()
+                    }
+                },
+                error: function(err){
+                    console.log("Error",err.responseText);
+                }
+            });
+
+    		return false;
+    	}
+
+
+        function cargarCitas(){
+            var aux=JSON.parse(localStorage.getItem("Paciente"));
+    		var id_paciente = aux.id_paciente;
+            var parametros = {
+                'id': id_paciente,
+            }
+            console.log(parametros);
+            $.ajax({
+                data: parametros,
+                url:'https://localhost:44347/Citas/MisCitas',
+                type:'POST',
+                dataType: 'json',
+                beforeSend: function(){ $.mobile.loading('show'); },
+ 	            complete: function(){ $.mobile.loading('hide'); },
+                success: function(response){
+                    console.log("Citas",response);
+                    var tabla = $("#tbody");
+                    tabla.empty();
+                    var estadoCita="";
+                    var horaFinal="";
+                    for (var i = 0; i < response.lista.length; i++) {
+                        switch(response.lista[i].status){
+                            case 0:
+                                estadoCita="Pendiente";
+                                break;
+                            case 1:
+                                estadoCita="Aceptada";
+                                break;
+                            case 2:
+                                estadoCita="Rechazada";
+                                break;
+                            case 3:
+                                estadoCita="Finalizada";
+                                break;
+                            default:
+                                estadoCita="";
+                                break;
+                        }
+                        switch(response.lista[i].horag.Hours){
+                            case 9:
+                                horaFinal="9:00 A.M.";
+                                break;
+                            case 10:
+                                horaFinal="10:00 A.M.";
+                                break;
+                            case 11:
+                                horaFinal="11:00 A.M.";
+                                break;
+                            case 12:
+                                horaFinal="12:00 P.M.";
+                                break;
+                            case 13:
+                                horaFinal="1:00 P.M.";
+                                break;
+                            case 14:
+                                horaFinal="2:00 P.M.";
+                                break;
+                            case 15:
+                                horaFinal="3:00 P.M.";
+                                break;
+                            case 16:
+                                horaFinal="4:00 P.M.";
+                                break;
+                            default:
+                                horaFinal="";
+                                break;
+                        }
+                        tabla.append("<tr><td>" + response.lista[i].doctor + "</td>" +
+                            "<td>" + response.lista[i].fecha + "</td>" +
+                            "<td>" + horaFinal + "</td>" +
+                            "<td>" + response.lista[i].observacion + "</td>" +
+                            "<td>" + estadoCita + "</td>" +
+                            "<td><a href='#detallesCita' data-role='button'  data-transition='slidedown' data-theme='a'   data-rel='dialog' >Ver</a></td>" +
+                            "</tr>");
+                    }
+                    /*var select_Doctores = $("#id_doctor");
+                    select_Doctores.empty();
+                    for(var i=0;i<response.lista.length;i++){
+                        select_Doctores.append("<option value='"+response.lista[i].id_doctor+"'>"+response.lista[i].nombre+"</option>");
+                    }*/
+                },
+                error: function(err){
+                    console.log("Error",err.responseText);W
+                }
+            });
+
+    		return false;
+    	}
+
+
+
+
     </script>
 </body>
 
