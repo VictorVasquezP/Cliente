@@ -196,6 +196,7 @@
                 <h4>Email</h4>
                 <p id="p_email"></p>
             </div>
+            <button type="submit"  data-role="button" data-icon="power" data-transition="slidedown" data-theme="b"  onclick="cerrarsesion()">CERRAR SESIÓN</button>
         </div>
         <div data-role="footer" data-position="fixed">
             <div data-role="navbar">
@@ -438,6 +439,11 @@
     	}
 
 
+
+        function cerrarsesion(){
+            localStorage.setItem("Paciente",null);
+            $.mobile.changePage(window.location.href="index.html",{transition:"pop", reloadPage:true});
+    	}
 
 
     </script>
