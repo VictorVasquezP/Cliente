@@ -167,6 +167,7 @@
                 success: function(response){
                     console.log("success",response);
                     if(response.result ){
+                        localStorage.setItem("Paciente",JSON.stringify( parametros));
                         $.mobile.changePage(window.location.href="principal.html",{transition:"pop", reloadPage:true});
                     }else{
                         $.mobile.changePage("#noacceso",{transition:"flow", role:"dialog"});
