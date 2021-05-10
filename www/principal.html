@@ -149,7 +149,6 @@
                         <th>HORA</th>
                         <th>OBSERVACIÓN</th>
                         <th>ESTADO</th>
-                        <th>DETALLES</th>
                     </tr>
                 </thead>
                 <tbody id="tbody">
@@ -420,9 +419,8 @@
                             "<td>" + response.lista[i].fecha + "</td>" +
                             "<td>" + horaFinal + "</td>" +
                             "<td>" + response.lista[i].observacion + "</td>" +
-                            "<td>" + estadoCita + "</td>" +
-                            "<td><a href='#detallesCita' data-role='button'  data-transition='slidedown' data-theme='a'   data-rel='dialog' >Ver</a></td>" +
-                            "</tr>");
+                            "<td>" + estadoCita + "</td>" 
+                            +"</tr>");
                     }
                     /*var select_Doctores = $("#id_doctor");
                     select_Doctores.empty();
