@@ -86,11 +86,11 @@
         </div>
             <div data-role="content">
                     <form onsubmit="return agregar()">
-                        <input id="nuevo_nombre" name="nuevo_nombre" placeholder="Nombre" required pattern="[A-Z-(ÁÉÍÓÚ)]{1}[A-Za-z(ÁÉÍÓÚáéíóú) ]{3,30}" title="El nombre debe iniciar con mayúsculas y solo deben ser letras"/>
-                        <input id="nuevo_ape_pat" name="nuevo_ape_pat" placeholder="Apellido Paterno" required pattern="[A-Z-(ÁÉÍÓÚ)]{1}[A-Za-z(ÁÉÍÓÚáéíóú) ]{3,30}" title="El apellido debe iniciar con mayúsculas y solo deben ser letras"/>  
-                        <input id="nuevo_ape_mat" name="nuevo_ape_mat" placeholder="Apellido Materno" required pattern="[A-Z-(ÁÉÍÓÚ)]{1}[A-Za-z(ÁÉÍÓÚáéíóú) ]{3,30}" title="El apellido debe iniciar con mayúsculas y solo deben ser letras"/>
-                        <input id="nuevo_usuario" name="nuevo_usuario" placeholder="Usuario" required pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" />
-                        <input id="nuevo_password" name="nuevo_password" placeholder="Contraseña" required min="5" max="15" title="Debe tener una longitud de caracteres de min 5 y max 15"/> 
+                        <input type="text" id="nuevo_nombre" name="nuevo_nombre" placeholder="Nombre" required pattern="[A-Z-(ÁÉÍÓÚ)]{1}[A-Za-z(ÁÉÍÓÚáéíóú) ]{3,30}" title="El nombre debe iniciar con mayúsculas y solo deben ser letras"/>
+                        <input type="text" id="nuevo_ape_pat" name="nuevo_ape_pat" placeholder="Apellido Paterno" required pattern="[A-Z-(ÁÉÍÓÚ)]{1}[A-Za-z(ÁÉÍÓÚáéíóú) ]{3,30}" title="El apellido debe iniciar con mayúsculas y solo deben ser letras"/>  
+                        <input type="text" id="nuevo_ape_mat" name="nuevo_ape_mat" placeholder="Apellido Materno" required pattern="[A-Z-(ÁÉÍÓÚ)]{1}[A-Za-z(ÁÉÍÓÚáéíóú) ]{3,30}" title="El apellido debe iniciar con mayúsculas y solo deben ser letras"/>
+                        <input type="text" id="nuevo_usuario" name="nuevo_usuario" placeholder="Usuario" required pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" />
+                        <input type="password" id="nuevo_password" name="nuevo_password" placeholder="Contraseña" required min="5" max="15" title="Debe tener una longitud de caracteres de min 5 y max 15"/> 
                         <button type="submit"  data-role="button" data-icon="plus" data-transition="slidedown" data-theme="b"  >Registrar</button>
                     </form>
                     <a data-role="button"  data-rel="back">Cerrar</a>
@@ -118,6 +118,7 @@
             $.ajax({
                 data: parametros,
                 url:'https://ProyectoClinica.somee.com/Login/LoginMovil',
+                //url:'https://localhost:44347/Login/LoginMovil',
                 type:'POST',
                 dataType: 'json',
                 beforeSend: function(){ $.mobile.loading('show'); },
