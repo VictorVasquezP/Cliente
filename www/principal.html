@@ -317,7 +317,7 @@
                     var select_Doctores = $("#id_doctor");
                     select_Doctores.empty();
                     for (var i = 0; i < response.lista.length; i++) {
-                        select_Doctores.append("<option value='" + response.lista[i].id_doctor + "'>" + response.lista[i].nombre + "</option>");
+                        select_Doctores.append("<option value='" + response.lista[i].id_usuario + "'>" + response.lista[i].nombre + "</option>");
                     }
                 },
                 error: function (err) {
